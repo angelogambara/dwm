@@ -1,0 +1,27 @@
+ 25 patches/dwm-preventfocusshift-20240831-6.5.diff
+ 27 patches/dwm-underlinetags-6.2.diff
+ 38 patches/dwm-statusallmons-6.5.diff
+ 42 patches/dwm-savefloats-20181212-b69c870.diff
+ 48 patches/dwm-hide_vacant_tags-6.4.diff
+ 54 patches/dwm-attachbottom-6.3.diff
+ 57 patches/dwm-doublepressquit-6.3.diff
+ 62 patches/dwm-statuspadding-6.3.diff (https://redd.it/v3ktt6)
+ 63 patches/dwm-steam-6.2.diff
+ 68 patches/dwm-actualfullscreen-20211013-cb3f58a.diff
+ 68 patches/dwm-swaptags-6.2.diff
+ 70 patches/dwm-horizgrid-6.1.diff
+ 75 patches/dwm-resizecorners-6.5.diff
+ 76 patches/dwm-swapmonitors-20250509-4cd2832.diff
+ 79 patches/dwm-warp-6.4.diff
+ 82 patches/dwm-notitle-6.5.diff
+ 86 patches/dwm-bulkill-20231029-9f88553.diff
+ 87 patches/dwm-fixmultimon-6.4.diff
+ 87 patches/dwm-shiftviewclients-6.5.diff
+ 90 patches/dwm-focusmaster-return-6.2.diff
+ 95 patches/dwm-movestack-20211115-a786211.diff
+101 patches/dwm-restoreafterrestart-20220709-d3f93c7.diff
+101 patches/dwm-uselessgap-20211119-58414bee958f2.diff (https://wiki.archlinux.org/title/Alacritty)
+102 patches/dwm-rotatestack-20161021-ab9571b.diff
+139 patches/dwm-restartsig-20180523-6.2.diff
+166 patches/dwm-status2d-6.3.diff
+188 patches/dwm-statuscmd-status2d-statuspadding-20210405-60bb3df.diff
