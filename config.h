@@ -22,8 +22,8 @@ static const char gray4[]           = "#EBDBB2";
 static const char yellow[]          = "#D79921";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { gray3, gray1,  gray2  },
-	[SchemeSel]  = { gray4, yellow, yellow },
+	[SchemeNorm] = { gray4, gray1,  gray3  },
+	[SchemeSel]  = { gray1, yellow, yellow },
 };
 
 /* tagging */
@@ -81,23 +81,25 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", gray1, "-nf", gray3, "-sb", yellow, "-sf", gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", gray1, "-nf", gray4, "-sb", yellow, "-sf", gray1, NULL };
 static const char *termcmd[] = { "alacritty", NULL };
 static const char *sxivcmd[] = { "sh", "-c", "sxiv -ro ~/gallery-dl", NULL };
 static const char *benqcmd[] = { "sh", "-c", "sxiv -ro ~/gallery-dl -P ~/.local/share/color/icc/benq.icc", NULL };
 static const char *flameshotcmd[] = { "flameshot",  "gui",  NULL };
 static const char *notifexeccmd[] = { "dunstctl", "action", NULL };
 static const char *notifkillcmd[] = { "dunstctl", "close-all", NULL };
-static const char *togglemonitorcmd[] = { "toggle-monitor.sh", NULL };
-static const char *suspendcmd[] = { "zzz", NULL };
-static const char *micmutecmd[] = { "sh", "-c", "pactl set-source-mute @DEFAULT_SINK@ toggle; pkill -RTMIN+6 dwmblocks", NULL };
-static const char *volupcmd[]   = { "sh", "-c", "pactl set-sink-volume @DEFAULT_SINK@ +5%; pkill -RTMIN+8 dwmblocks", NULL };
-static const char *voldowncmd[] = { "sh", "-c", "pactl set-sink-volume @DEFAULT_SINK@ -5%; pkill -RTMIN+8 dwmblocks", NULL };
-static const char *volmutecmd[] = { "sh", "-c", "pactl set-sink-mute @DEFAULT_SINK@ toggle; pkill -RTMIN+8 dwmblocks", NULL };
+static const char *dpmsforceoffcmd[] = { "sh", "-c", "sleep 0.5 && xset dpms force off", NULL };
+static const char *kdbrepeatcmd[] = { "sh", "-c", "xset r rate 200 40", NULL };
+static const char *togglemoncmd[] = { "sh", "-c", "~/.config/dwm/scripts/toggle-monitor.sh DisplayPort1-2", NULL };
+static const char *micmutecmd[] = { "sh", "-c", "wpctl set-mute @DEFAULT_SOURCE@ toggle; pkill -RTMIN+4 dwmblocks", NULL };
+static const char *volupcmd[]   = { "sh", "-c", "wpctl set-volume --limit=1.0 @DEFAULT_SINK@ 5%+; pkill -RTMIN+4 dwmblocks", NULL };
+static const char *voldowncmd[] = { "sh", "-c", "wpctl set-volume --limit=1.0 @DEFAULT_SINK@ 5%-; pkill -RTMIN+4 dwmblocks", NULL };
+static const char *volmutecmd[] = { "sh", "-c", "wpctl set-mute @DEFAULT_SINK@ toggle; pkill -RTMIN+4 dwmblocks", NULL };
 static const char *brightupcmd[]   = { "sh", "-c", "brightnessctl set 5%+; pkill -RTMIN+5 dwmblocks", NULL };
 static const char *brightdowncmd[] = { "sh", "-c", "brightnessctl set 5%-; pkill -RTMIN+5 dwmblocks", NULL };
 static const char *wallpapercmd[] = { "sh", "-c", "~/.local/bin/setbg  ~/.cache/wallpaper", NULL };
 static const char *dwmblockscmd[] = { "sh", "-c", "killall dwmblocks; setsid -f dwmblocks", NULL };
+static const char *suspendcmd[] = { "zzz", NULL };
 static const char *browsercmd[] = { "firefox", NULL };
 static const char *filemanagercmd[] = { "thunar", NULL };
 static const char *kritacmd[] = { "krita", NULL };
@@ -117,10 +119,12 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = benqcmd } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = notifexeccmd } },
 	{ MODKEY|ShiftMask,             XK_n,      spawn,          {.v = notifkillcmd } },
-	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = togglemonitorcmd } },
+	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = togglemoncmd } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = prismlaunchercmd } },
 	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = steamcmd } },
 	{ MODKEY,                       XK_v,      spawn,          {.v = virtmanagercmd } },
+	{ MODKEY|ControlMask|ShiftMask, XK_x,      spawn,          {.v = kdbrepeatcmd } },
+	{ MODKEY|ShiftMask,             XK_x,      spawn,          {.v = dpmsforceoffcmd } },
 	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = suspendcmd } },
 	{ MODKEY|ControlMask,           XK_k,      spawn,          {.v = kritacmd } },
 	{ MODKEY|ControlMask,           XK_x,      spawn,          {.v = xencelabscmd } },
