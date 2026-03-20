@@ -20,10 +20,12 @@ static const char gray2[]           = "#928374";
 static const char gray3[]           = "#A89984";
 static const char gray4[]           = "#EBDBB2";
 static const char yellow[]          = "#D79921";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { gray4, gray1,  gray3  },
-	[SchemeSel]  = { gray1, yellow, yellow },
+static const char orange[]          = "#d65d0e";
+static const char green[]           = "#98971a";
+static const char *colors[][5]      = {
+	/*               fg         bg         border     float      sticky */
+	[SchemeNorm] = { gray4, gray1,  gray3,  gray3, gray3  },
+	[SchemeSel]  = { gray1, yellow, yellow, green, orange },
 };
 
 /* tagging */
@@ -31,11 +33,6 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 /* Lockfile */
 static char lockfile[] = "/tmp/dwm.lock";
-
-static const unsigned int ulinepad      = 5;  /* horizontal padding between the underline and tag */
-static const unsigned int ulinestroke   = 2;  /* thickness / height of the underline */
-static const unsigned int ulinevoffset  = 0;  /* how far above the bottom of the bar the line should appear */
-static const int ulineall               = 0;  /* 1 to show underline on all tags, 0 for just the active ones */
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -72,7 +69,8 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
-	{ ALTKEY|ShiftMask,             KEY,      swaptags,       {.ui = 1 << TAG} },
+	{ ALTKEY,                       KEY,      swaptags,       {.ui = 1 << TAG} }, \
+	{ ALTKEY|ShiftMask,             KEY,      viewontag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -125,7 +123,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_v,      spawn,          {.v = virtmanagercmd } },
 	{ MODKEY|ControlMask|ShiftMask, XK_x,      spawn,          {.v = kdbrepeatcmd } },
 	{ MODKEY|ShiftMask,             XK_x,      spawn,          {.v = dpmsforceoffcmd } },
-	{ MODKEY|ShiftMask,             XK_z,      spawn,          {.v = suspendcmd } },
+	{ MODKEY|ControlMask|ShiftMask, XK_s,      spawn,          {.v = suspendcmd } },
 	{ MODKEY|ControlMask,           XK_k,      spawn,          {.v = kritacmd } },
 	{ MODKEY|ControlMask,           XK_x,      spawn,          {.v = xencelabscmd } },
 	{ MODKEY,                       XK_Print,  spawn,          {.v = flameshotcmd } },
@@ -136,10 +134,12 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
-	{ MODKEY|ControlMask|ShiftMask, XK_j,      rotatestack,    {.i = +1 } },
-	{ MODKEY|ControlMask|ShiftMask, XK_k,      rotatestack,    {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_r,      unfloatvisible, {0} },
+	{ MODKEY,                       XK_r,      resetnmaster,   {0} },
+	{ MODKEY|ShiftMask,             XK_h,      aspectresize,   {.i = +24} },
+	{ MODKEY|ShiftMask,             XK_l,      aspectresize,   {.i = -24} },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = -0.05} },
 	{ MODKEY|ControlMask,           XK_Return, zoom,           {0} },
@@ -152,7 +152,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_z,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY|ControlMask,           XK_space,  focusmaster,    {0} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
