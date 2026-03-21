@@ -46,7 +46,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.60; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
@@ -69,8 +69,8 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
-	{ ALTKEY,                       KEY,      swaptags,       {.ui = 1 << TAG} }, \
-	{ ALTKEY|ShiftMask,             KEY,      viewontag,      {.ui = 1 << TAG} },
+	{ ALTKEY|ShiftMask,             KEY,      swaptags,       {.ui = 1 << TAG} }, \
+	{ ALTKEY|ControlMask|ShiftMask, KEY,      viewontag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -79,54 +79,62 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", gray1, "-nf", gray4, "-sb", yellow, "-sf", gray1, NULL };
-static const char *termcmd[] = { "alacritty", NULL };
-static const char *sxivcmd[] = { "sh", "-c", "sxiv -ro ~/gallery-dl", NULL };
-static const char *benqcmd[] = { "sh", "-c", "sxiv -ro ~/gallery-dl -P ~/.local/share/color/icc/benq.icc", NULL };
-static const char *flameshotcmd[] = { "flameshot",  "gui",  NULL };
-static const char *notifexeccmd[] = { "dunstctl", "action", NULL };
-static const char *notifkillcmd[] = { "dunstctl", "close-all", NULL };
-static const char *dpmsforceoffcmd[] = { "sh", "-c", "sleep 0.5 && xset dpms force off", NULL };
-static const char *kdbrepeatcmd[] = { "sh", "-c", "xset r rate 200 40", NULL };
-static const char *togglemoncmd[] = { "sh", "-c", "~/.config/dwm/scripts/toggle-monitor.sh DisplayPort1-2", NULL };
-static const char *micmutecmd[] = { "sh", "-c", "wpctl set-mute @DEFAULT_SOURCE@ toggle; pkill -RTMIN+4 dwmblocks", NULL };
-static const char *volupcmd[]   = { "sh", "-c", "wpctl set-volume --limit=1.0 @DEFAULT_SINK@ 5%+; pkill -RTMIN+4 dwmblocks", NULL };
-static const char *voldowncmd[] = { "sh", "-c", "wpctl set-volume --limit=1.0 @DEFAULT_SINK@ 5%-; pkill -RTMIN+4 dwmblocks", NULL };
-static const char *volmutecmd[] = { "sh", "-c", "wpctl set-mute @DEFAULT_SINK@ toggle; pkill -RTMIN+4 dwmblocks", NULL };
-static const char *brightupcmd[]   = { "sh", "-c", "brightnessctl set 5%+; pkill -RTMIN+5 dwmblocks", NULL };
-static const char *brightdowncmd[] = { "sh", "-c", "brightnessctl set 5%-; pkill -RTMIN+5 dwmblocks", NULL };
-static const char *wallpapercmd[] = { "sh", "-c", "~/.local/bin/setbg  ~/.cache/wallpaper", NULL };
-static const char *dwmblockscmd[] = { "sh", "-c", "killall dwmblocks; setsid -f dwmblocks", NULL };
-static const char *suspendcmd[] = { "zzz", NULL };
-static const char *browsercmd[] = { "firefox", NULL };
-static const char *filemanagercmd[] = { "thunar", NULL };
-static const char *kritacmd[] = { "krita", NULL };
-static const char *prismlaunchercmd[] = { "prismlauncher", NULL };
-static const char *steamcmd[] = { "steam", NULL };
-static const char *virtmanagercmd[] = { "virt-manager", NULL };
-static const char *xencelabscmd[] = { "gtk-launch", "xencelabs", NULL };
+static const char *dmenucmd[] = {
+	"dmenu_run",
+	"-m", dmenumon,
+	"-fn", dmenufont,
+	"-nb", gray1,
+	"-nf", gray4,
+	"-sb", yellow,
+	"-sf", gray1,
+	NULL
+};
+
+static const char *browsercmd[]         = { "com.brave.Browser",    NULL };
+static const char *filemancmd[]         = { "thunar",   NULL };
+static const char *flameshotcmd[]       = { "flameshot", "gui",     NULL };
+static const char *kritacmd[]           = { "krita",    NULL };
+static const char *notifexeccmd[]       = { "dunstctl", "action",       NULL };
+static const char *notifkillcmd[]       = { "dunstctl", "close-all",    NULL };
+static const char *steamcmd[]           = { "com.valvesoftware.Steam",  NULL };
+static const char *suspendcmd[]         = { "zzz",  NULL };
+static const char *sxivcmd[]            = { "sh", "-c", "sxiv -ro ~/gallery-dl",    NULL };
+static const char *termcmd[]            = { "alacritty",    NULL };
+static const char *virtmancmd[]         = { "virt-manager", NULL };
+
+static const char *volmutecmd[]         = { "sh", "-c", "wpctl set-mute @DEFAULT_SINK@ toggle; pkill -RTMIN+4 dwmblocks",   NULL };
+static const char *voldowncmd[]         = { "sh", "-c", "wpctl set-volume --limit=1.0 @DEFAULT_SINK@ 5%-; pkill -RTMIN+4 dwmblocks",    NULL };
+static const char *volupcmd[]           = { "sh", "-c", "wpctl set-volume --limit=1.0 @DEFAULT_SINK@ 5%+; pkill -RTMIN+4 dwmblocks",    NULL };
+static const char *micmutecmd[]         = { "sh", "-c", "wpctl set-mute @DEFAULT_SOURCE@ toggle; pkill -RTMIN+4 dwmblocks", NULL };
+
+static const char *brightdowncmd[]      = { "sh", "-c", "brightnessctl set 5%-; pkill -RTMIN+5 dwmblocks",  NULL };
+static const char *brightupcmd[]        = { "sh", "-c", "brightnessctl set 5%+; pkill -RTMIN+5 dwmblocks",  NULL };
+
+/* you may not need these */
+static const char *dpmsoffcmd[]         = { "sh", "-c", "sleep 0.5 && xset dpms force off",         NULL };
+static const char *dwmblockscmd[]       = { "sh", "-c", "killall dwmblocks; setsid -f dwmblocks",   NULL };
+static const char *kdbrepeatcmd[]       = { "sh", "-c", "xset r rate 200 40",                       NULL };
+static const char *togglemoncmd[]       = { "sh", "-c", "~/.config/dwm/scripts/toggle-monitor.sh",  NULL };
+static const char *wallpapercmd[]       = { "sh", "-c", "~/.local/bin/setbg ~/.cache/wallpaper",    NULL };
 
 #include <X11/XF86keysym.h>
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
-	{ MODKEY,                       XK_e,      spawn,          {.v = filemanagercmd } },
 	{ MODKEY,                       XK_s,      spawn,          {.v = sxivcmd } },
-	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = benqcmd } },
+	{ MODKEY,                       XK_b,      spawn,          {.v = browsercmd } },
+	{ MODKEY,                       XK_e,      spawn,          {.v = filemancmd } },
+	{ MODKEY,                       XK_v,      spawn,          {.v = virtmancmd } },
+	{ MODKEY|ControlMask,           XK_s,      spawn,          {.v = steamcmd } },
+	{ MODKEY|ControlMask,           XK_k,      spawn,          {.v = kritacmd } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = notifexeccmd } },
 	{ MODKEY|ShiftMask,             XK_n,      spawn,          {.v = notifkillcmd } },
-	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = togglemoncmd } },
-	{ MODKEY,                       XK_p,      spawn,          {.v = prismlaunchercmd } },
-	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = steamcmd } },
-	{ MODKEY,                       XK_v,      spawn,          {.v = virtmanagercmd } },
-	{ MODKEY|ControlMask|ShiftMask, XK_x,      spawn,          {.v = kdbrepeatcmd } },
-	{ MODKEY|ShiftMask,             XK_x,      spawn,          {.v = dpmsforceoffcmd } },
-	{ MODKEY|ControlMask|ShiftMask, XK_s,      spawn,          {.v = suspendcmd } },
-	{ MODKEY|ControlMask,           XK_k,      spawn,          {.v = kritacmd } },
-	{ MODKEY|ControlMask,           XK_x,      spawn,          {.v = xencelabscmd } },
 	{ MODKEY,                       XK_Print,  spawn,          {.v = flameshotcmd } },
+	{ MODKEY|ShiftMask,             XK_x,      spawn,          {.v = kdbrepeatcmd } },
+	{ MODKEY|ControlMask|ShiftMask, XK_x,      spawn,          {.v = dpmsoffcmd } },
+	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = togglemoncmd } },
+	{ MODKEY|ControlMask|ShiftMask, XK_s,      spawn,          {.v = suspendcmd } },
 	{ MODKEY|ControlMask,           XK_b,      spawn,          {.v = wallpapercmd } },
 	{ MODKEY|ControlMask|ShiftMask, XK_b,      spawn,          {.v = dwmblockscmd } },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
@@ -134,10 +142,10 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+	{ MODKEY,                       XK_u,      unfloatvisible, {0} },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_r,      unfloatvisible, {0} },
-	{ MODKEY,                       XK_r,      resetnmaster,   {0} },
+	{ MODKEY,                       XK_o,      resetnmaster,   {0} },
 	{ MODKEY|ShiftMask,             XK_h,      aspectresize,   {.i = +24} },
 	{ MODKEY|ShiftMask,             XK_l,      aspectresize,   {.i = -24} },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = +0.05} },

@@ -63,8 +63,8 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
-	{ ALTKEY,                       KEY,      swaptags,       {.ui = 1 << TAG} }, \
-	{ ALTKEY|ShiftMask,             KEY,      viewontag,      {.ui = 1 << TAG} },
+	{ ALTKEY|ShiftMask,             KEY,      swaptags,       {.ui = 1 << TAG} }, \
+	{ ALTKEY|ControlMask|ShiftMask, KEY,      viewontag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -83,9 +83,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_u,      unfloatvisible, {0} },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_o,      unfloatvisible, {0} },
 	{ MODKEY,                       XK_o,      resetnmaster,   {0} },
 	{ MODKEY|ShiftMask,             XK_h,      aspectresize,   {.i = +24} },
 	{ MODKEY|ShiftMask,             XK_l,      aspectresize,   {.i = -24} },
