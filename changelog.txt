@@ -17,7 +17,6 @@
  75 patches/dwm-resizecorners-6.5.diff
  76 patches/dwm-swapmonitors-20250509-4cd2832.diff
  79 patches/dwm-warp-6.4.diff
- 82 patches/dwm-notitle-6.5.diff
  86 patches/dwm-bulkill-20231029-9f88553.diff
  87 patches/dwm-fixmultimon-6.4.diff
  87 patches/dwm-shiftviewclients-6.5.diff
