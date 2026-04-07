@@ -99,7 +99,7 @@ static const char *notifkillcmd[]       = { "dunstctl", "close-all",    NULL };
 static const char *steamcmd[]           = { "com.valvesoftware.Steam",  NULL };
 static const char *suspendcmd[]         = { "zzz",  NULL };
 static const char *sxivcmd[]            = { "sh", "-c", "sxiv -ro ~/gallery-dl",    NULL };
-static const char *termcmd[]            = { "alacritty",    NULL };
+static const char *termcmd[]            = { "st",   NULL };
 static const char *virtmancmd[]         = { "virt-manager", NULL };
 
 static const char *volmutecmd[]         = { "sh", "-c", "wpctl set-mute @DEFAULT_SINK@ toggle; pkill -RTMIN+4 dwmblocks",   NULL };
