@@ -24,7 +24,7 @@ static const char orange[]          = "#d65d0e";
 static const char green[]           = "#98971a";
 static const char *colors[][5]      = {
 	/*               fg         bg         border     float      sticky */
-	[SchemeNorm] = { gray4, gray1,  gray3,  gray3, gray3  },
+	[SchemeNorm] = { gray4, gray1,  gray2,  gray2, gray2  },
 	[SchemeSel]  = { gray1, yellow, yellow, green, orange },
 };
 
