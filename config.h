@@ -113,8 +113,8 @@ static const char *brightupcmd[]        = { "sh", "-c", "brightnessctl set 5%+; 
 /* you may not need these */
 static const char *dpmsoffcmd[]         = { "sh", "-c", "sleep 0.5 && xset dpms force off",         NULL };
 static const char *dwmblockscmd[]       = { "sh", "-c", "killall dwmblocks; setsid -f dwmblocks",   NULL };
-static const char *kdbrepeatcmd[]       = { "sh", "-c", "xset r rate 200 40",                       NULL };
-static const char *togglemoncmd[]       = { "sh", "-c", "~/.config/dwm/scripts/toggle-monitor.sh",  NULL };
+static const char *kdbrepeatcmd[]       = { "sh", "-c", "xset r rate 200 40",       NULL };
+static const char *togglemoncmd[]       = { "sh", "-c", "~/.local/bin/togglemon",   NULL };
 static const char *wallpapercmd[]       = { "sh", "-c", "~/.local/bin/setbg ~/.cache/wallpaper",    NULL };
 
 #include <X11/XF86keysym.h>
