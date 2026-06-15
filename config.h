@@ -183,10 +183,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_q,      quit,           {1} },
-	{ 0,                            XK_F1,     spawn,          {.v = volmutecmd } },
-	{ 0,                            XK_F2,     spawn,          {.v = voldowncmd } },
-	{ 0,                            XK_F3,     spawn,          {.v = volupcmd } },
-	{ 0,                            XK_F4,     spawn,          {.v = micmutecmd } },
 	{ 0,                            XF86XK_AudioMute,            spawn,          {.v = volmutecmd } },
 	{ 0,                            XF86XK_AudioLowerVolume,     spawn,          {.v = voldowncmd } },
 	{ 0,                            XF86XK_AudioRaiseVolume,     spawn,          {.v = volupcmd } },
